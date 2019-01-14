@@ -219,4 +219,59 @@ print(mat_mul_matrix)
 # [[ 3  4  5]
 # [ 9 14 19]]
 
+# 16.上述のように、numpy.ndarrayとnumpy.matrixでは
+# *演算子に対する振る舞いが異なるため、べき乗**演算子に
+# 対する結果も異なる
+# numpy.ndarrayでは各要素に対してべき乗処理が行われ、numpy.matrixでは
+# 行列の積が繰り返される
+arr = np.arange(1, 5).reshape(2, 2)
+print(arr)
+# [[1 2]
+#  [3 4]]
+arr_p = arr**2
+print(arr_p)
+# [[ 1  4]
+#  [ 9 16]]
+mat = np.matrix(arr)
+print(arr)
+# [[1 2]
+#  [3 4]]
+mat_p = mat**2
+print(mat_p)
+# [[ 7 10]
+#  [15 22]]
+print(mat**2 == mat * mat)
+# [[ True  True]
+# [ True  True]]
+print(mat**3 == mat * mat * mat)
+# [[ True  True]
+#  [ True  True]]
+
+# 17. 負のべき乗についてもnumpy.ndarrayでは各要素に対してべき乗処理が行われる
+# このとき、元の配列のデータ型dtypeがintだとエラーになる。
+# あらかじめデータ型をfloatにしておけばOK
+# arr_n = arr**-1
+# ValueError: Integers to negative integer powers are not allowed.
+arr_f = np.array(arr, dtype=float)
+arr_f_n = arr_f**-1
+print(arr_f_n)
+# [[1.         0.5       ]
+#  [0.33333333 0.25      ]]
+
+# 18. numpy.matrixに対する**-1は逆行列の演算になる。
+# 負のべき乗は逆行列の積の繰り返しになる
+mat_inv = mat**-1
+print(mat_inv)
+# [[-2.   1. ]
+#  [ 1.5 -0.5]]
+mat_inv2 = mat**-2
+print(mat_inv2)
+# [[ 5.5  -2.5 ]
+#  [-3.75  1.75]]
+print(mat**-2 == mat**-1 * mat**-1)
+# [[ True  True]
+#  [ True  True]]
+print(mat**-3 == mat**-1 * mat**-1 * mat**-1)
+# [[ True  True]
+#  [ True  True]]
 
