@@ -275,3 +275,15 @@ print(mat**-3 == mat**-1 * mat**-1 * mat**-1)
 # [[ True  True]
 #  [ True  True]]
 
+# 19. 行列（二次元配列）というテーマからずれるが、
+# ベクトル（一次元配列）の内積を算出するには
+# numpy.inner()を使う。
+# 上述のように、numpy.mmatrixは行列（二次元配列）に特化した
+# クラスであり、コンストラクタに一次元配列を渡すと二次元配列
+# に拡張するため、ベクトル（一次元配列）を扱う場合は
+# numpy.ndarrayを用いる。
+v1 = np.array([0, 1, 2])
+v2 = np.array([3, 4, 5])
+inner = np.inner(v1, v2)
+print(inner)
+# 14
