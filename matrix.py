@@ -287,3 +287,79 @@ v2 = np.array([3, 4, 5])
 inner = np.inner(v1, v2)
 print(inner)
 # 14
+
+# 20. numpy.dot(), numpy.matmul()でも引数が一次元配列の場合は
+# 内積を返すようになっている。@演算子でも同様。
+inner_dot = np.dot(v1, v2)
+print(inner_dot)
+# 14
+inner_matmul = np.matmul(v1, v2)
+print(inner_matmul)
+# 14
+inner_matmul = v1 @ v2
+print(inner_matmul)
+# 14
+
+# 21. 逆行列を算出するには、numpy.linalg.inv()を使う。
+arr = np.array([[2, 5], [1, 3]])
+# arr = np.array([[1, 1], [1, 1]]) Error!
+arr_inv = np.linalg.inv(arr)
+print(arr_inv)
+# [[ 3. -5.]
+#  [-1.  2.]]
+mat = np.matrix([[2, 5], [1, 3]])
+mat_inv = np.linalg.inv(mat)
+print(mat_inv)
+# [[ 3. -5.]
+#  [-1.  2.]]
+
+# 21. numpy.matrixでは、**-1(-1乗)でも逆行列を算出できる。
+# また、.I属性でも逆行列を取得できる。
+mat_inv = mat**-1
+print(mat_inv)
+# [[ 3. -5.]
+#  [-1.  2.]]
+mat_inv = mat.I
+print(mat_inv)
+# [[ 3. -5.]
+#  [-1.  2.]]
+# numpy.matrixでは、行列の積が*演算子で計算できるのは、例えば、
+# 元の行列と逆行列の積が単位行列になることが以下のような簡単な
+# 書き方で確認できる。
+result = mat * mat.I
+print(result)
+# [[1. 0.]
+#  [0. 1.]]
+
+# 22. 行列式を算出するには、numpy.linalg.det()を使う。
+# 例はnumpy.dnarrayだが、numpy.matrixでも同様。
+arr = np.array([[0, 1], [2, 3]])
+det = np.linalg.det(arr)
+print(det)
+# -2.0
+
+# 23. 固有値と固有ベクトルを算出するには、numpy.linalg.eig()を使う。
+# n次正方行列に対して、n個の固有値が要素となる一次元配列wと、
+# 各列が各々の固有値に対応する固有ベクトルとなる
+# 二次元配列vが返る。
+#
+# i個目の固有値w[i]と、i列目の固有ベクトルv[:, i]が対応している。
+# 固有ベクトルは1に規格化した値。
+# 例はnumpy.ndarrayだが、numpy.matrixでも同様。
+arr = np.array([[8, 1], [4, 5]])
+w, v = np.linalg.eig(arr)
+print(w)
+# [9. 4.]
+print(v)
+# [[ 0.70710678 -0.24253563]
+#  [ 0.70710678  0.9701425 ]]
+print('value: ', w[0])
+print('vector: ', v[:, 0] / v[0, 0])
+# value:  9.0
+# vector:  [1. 1.]
+# 最大固有値を求めたい場合は、最大値のインデックスを返す
+# numpy.argmax()を使えばよい。
+print(w[np.argmax(w)])
+print(v[:, np.argmax(w)])
+# 9.0
+# [0.70710678 0.70710678]
