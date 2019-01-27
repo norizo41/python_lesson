@@ -363,3 +363,64 @@ print(w[np.argmax(w)])
 print(v[:, np.argmax(w)])
 # 9.0
 # [0.70710678 0.70710678]
+
+# 24. 以下のような関数を定義すると、対応する固有値を固有ベクトル
+# のタプルのリストを取得することができる。固有ベクトルは1で規格化
+# された値だとよく分からないので、各列の0でない最も絶対値が
+# 小さい値で割っている。
+def get_eigenpairs(arr):
+    w, v = np.linalg.eig(arr)
+    eigenpairs = []
+
+    for i, val in enumerate(w):
+        vec = v[:, i] / np.min(np.abs(v[:, i][v[:, i] != 0]))
+        eigenpairs.append((val, vec))
+
+    return eigenpairs
+
+eigenpairs = get_eigenpairs(arr)
+for val, vec in eigenpairs:
+    print('value: {}, vector: {}'.format(val, vec))
+# value: 9.0, vector: [1. 1.]
+# value: 4.0, vector: [-1.  4.]
+# 以下、3×3の例
+arr = np.array([[1, 1, 2], [0, 2, -1], [0, 0, 3]])
+eigenpairs = get_eigenpairs(arr)
+
+for val, vec in eigenpairs:
+    print('value: {}, vector: {}'.format(val, vec))
+# value: 1.0, vector: [1. 0. 0.]
+# value: 2.0, vector: [1. 1. 0.]
+# value: 3.0, vector: [ 1. -2.  2.]
+# 複素数も扱うことができる。虚数単位はjで表される
+arr = np.array([[3, 2], [-2, 3]])
+eigenpairs = get_eigenpairs(arr)
+for val, vec in eigenpairs:
+    print('value: {}, vector: {}'.format(val, vec))
+# value: (3+2.0000000000000004j), vector: [0.-1.j 1.+0.j]
+# value: (3-2.0000000000000004j), vector: [0.+1.j 1.-0.j]
+# Pythonで複素数の扱いについては以下の記事を参照。
+# https://note.nkmk.me/python-complex/
+# 
+# # 25. 最後に、numpy.ndarrayとnumpy.matrixの違いをまとめておく。
+# 【numpy.ndarray】
+# 次元数：任意
+# *演算子：各要素ごとの積
+# **演算子：各要素をべき乗
+# **-1：各要素を-1乗
+# **-n：各要素を-n乗
+# .I属性：無い
+# 【numpy.matrix】
+# 次元数：2次元のみ
+# *演算子：行列の積
+# **演算子：行列の積を繰り返す
+# **-1：逆行列
+# **-1：逆行列の積を繰り返す
+# .I属性：逆行列
+# そのほかの+, -, /演算子はどちらでも各要素ごとの演算となる。
+# 最初に書いたように、行列の積や逆行列を頻繁に計算する場合は
+# matrixの方が記述が楽かもしれないが、そうでなければ特に
+# matrixを使う必要はない。
+# Python3.5, NumPy1.10.0以降ではndarrayでも@演算子でも行列の積が
+# 計算できるようになったので、matrixを使うメリットは少なくなった。
+# 
