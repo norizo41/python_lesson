@@ -79,4 +79,28 @@ expr2 = x + y - 7
 print(sympy.solve([expr1, expr2]))
 # {x: 3, y: 4}
 
+# 8. 複数の変数を含む式において、任意の変数に対して解を
+# 取得することができる。第二引数に対象の変数を指定する。
+expr = x + y**2 - 4
+print(sympy.solve(expr, x))
+# [-y**2 + 4]
+print(sympy.solve(expr, y))
+# [-sqrt(-x + 4), sqrt(-x + 4)]
+
+# 9. 式の微分をするにはsympy.diff()を使う。
+print(sympy.diff(x**3 + 2 * x**2 + x))
+# 3*x**2 + 4*x + 1
+
+# 10. 複数の変数を含む式において、任意の変数に対して
+# 微分することもできる。第二引数に対象の変数を指定する。
+expr = x**3 + y**2 -y
+print(sympy.diff(expr, x))
+# 3*x**2
+print(sympy.diff(expr, y))
+# 2*y - 1
+
+# 10. 式の積分をするにはsympy.integrate()を使う。
+print(sympy.integrate(3*x**2 + 4*x + 1))
+# x**3 + 2*x**2 + x
+
 
