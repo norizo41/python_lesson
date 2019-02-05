@@ -103,4 +103,22 @@ print(sympy.diff(expr, y))
 print(sympy.integrate(3*x**2 + 4*x + 1))
 # x**3 + 2*x**2 + x
 
-
+# 11. 三角関数、指数関数、対数関数などはsympy.sin(), sympy.exp()
+# sympy.log()のように定義されている。
+# 微分や積分も可能。
+print(sympy.diff(sympy.cos(x)))
+# -sin(x)
+print(sympy.diff(sympy.sin(x)))
+# cos(x)
+print(sympy.diff(sympy.exp(x)))
+# exp(x)
+print(sympy.diff(sympy.log(x)))
+# 1/x
+print(sympy.integrate(sympy.cos(x)))
+# sin(x)
+print(sympy.integrate(sympy.sin(x)))
+# -cos(x)
+print(sympy.integrate(sympy.exp(x)))
+# exp(x)
+print(sympy.integrate(sympy.log(x)))
+# x*log(x) - x
